@@ -35,7 +35,12 @@ En la clase Producer dar a "Rum Producer.main()"
 ## Lo que se debe reflejar con los cambios del último commit (este commit)
 - En la consola del consumidor (levantada en el paso 4)
 ```bash
-se va a ver el texto que puse (en la clase Producer) como tercer parámetro en 'new ProducerRecord<>("sample-topic", "key1", "Value_texto-mensaje1");'
+Se va a ver el texto que puse (en la clase Producer) como tercer parámetro en 'new ProducerRecord<>("sample-topic", "key1", "Value_texto-mensaje1");'
+```
+- En la consola Run del IDE se deberá ver algo como lo siguiente
+```bash
+Received record metadata.
+Topic: sample-topic, partition: 2, Offset: 6 @ Timestamp: 1663079772903
 ```
 - En la consola Run del IDE, el texto terminará con el siguiente mensaje
 ```bash
