@@ -24,24 +24,26 @@ public class Producer {
         // Create the Producer
         final KafkaProducer<String, String> producer = new KafkaProducer<String, String>(prop);
 
-        // Create the ProducerRecord
-        ProducerRecord<String, String> record = new ProducerRecord<>("sample-topic", "key1", "Value_texto-mensaje1");
+        for (int i = 0; i < 10; i++) {//for para crear varios mensajes
+            // Create the ProducerRecord
+            ProducerRecord<String, String> record = new ProducerRecord<>("sample-topic", "key_" + i, "Value_texto-mensaje_" + i);
 
-        // Send Data - Asynchronous
-        producer.send(record, new Callback() {//Agrego un objeto (interfaz) de devolución de llamada, para que pueda ser llamado cuando se crea necesario
-            @Override //Se llamará a este método (onCompletion) una vez el mensaje se escriba con exito el topic de kafka
-            public void onCompletion(RecordMetadata metadata, Exception exception) {//Método de finalización (es el único de la clase Callback)
-                if (exception == null){//Si el mensaje se escribe con exito el topic de kafka y recibo metadatos
-                    //metadata. tiene mucha info, solo uso algunas
-                    logger.info("\nReceived record metadata. \n" +
-                            "Topic: "+ metadata.topic() + ", partition: " + metadata.partition() +
-                            ", Offset: "+ metadata.offset() + " @ Timestamp: " + metadata.timestamp() + "\n"
-                    );
-                } else {
-                    logger.error("Error occurred", exception); //registro el error;
+            // Send Data - Asynchronous
+            producer.send(record, new Callback() {//Agrego un objeto (interfaz) de devolución de llamada, para que pueda ser llamado cuando se crea necesario
+                @Override //Se llamará a este método (onCompletion) una vez el mensaje se escriba con exito el topic de kafka
+                public void onCompletion(RecordMetadata metadata, Exception exception) {//Método de finalización (es el único de la clase Callback)
+                    if (exception == null){//Si el mensaje se escribe con exito el topic de kafka y recibo metadatos
+                        //metadata. tiene mucha info, solo uso algunas
+                        logger.info("\nReceived record metadata. \n" +
+                                "Topic: "+ metadata.topic() + ", partition: " + metadata.partition() +
+                                ", Offset: "+ metadata.offset() + " @ Timestamp: " + metadata.timestamp() + "\n"
+                        );
+                    } else {
+                        logger.error("Error occurred", exception); //registro el error;
+                    }
                 }
-            }
-        });
+            });
+        } //Fin for para crear varios mensajes
 
         // Flush and close producer
         producer.flush();
