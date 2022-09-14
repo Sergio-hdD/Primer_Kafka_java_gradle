@@ -27,27 +27,44 @@
 .\bin\windows\kafka-console-consumer.bat --bootstrap-server 127.0.0.1:9092 --topic sample-topic --group java
 ```
 ###
-5- Correr la clase Producer
+## Lo que se debe reflejar con los cambios del último commit (este commit)
+### Por haber creado la clase cunsumer, se puede usar la siguiente forma
+###
+### A- Correr la clase Producer para producir los mensajes
 ```bash
 En la clase Producer dar a "Rum Producer.main()"
+
+(por cada vez que se haga suma, la cantidad indicada en el for, de mensajes que van a ser consumidos luego por el consumer)
 ```
-###
-## Lo que se debe reflejar con los cambios del último commit (este commit)
-### Por cada vuelta del for
+A.1- Por cada vuelta del for
 ***
-- En la consola del consumidor (levantada en el paso 4)
-```bash
-Se va a ver el texto que puse (en la clase Producer) como tercer parámetro en 'new ProducerRecord<>("sample-topic", "key_" + i, "Value_texto-mensaje_" + i);'
- - (puede ser que no se vean en orden, ya que se guardan en diferentes particones, en que particones se guardan lo podemos ver en la consola Run del IDE)
-```
-- En la consola Run del IDE se deberá ver algo como lo siguiente
+- En la consola Run del IDE del Producer se deberá ver algo como lo siguiente
 ```bash
 Received record metadata.
 Topic: sample-topic, partition: 2, Offset: 6 @ Timestamp: 1663079772903
 ```
-*** 
-### Por último
-- En la consola Run del IDE, el texto terminará con el siguiente mensaje
+***
+A.2- En la consola Run del IDE del Producer, el texto terminará con el siguiente mensaje
 ```bash
  Execution finished ':Producer.main()'.
 ```
+
+###
+### B- Correr la clase Consumer para consumir los mensajes
+```bash
+En la clase Consumer dar a "Rum Consumer.main()"
+```
+B.1- Por cada mensaje que haya creado el Producer y no hayan sido consumidos
+***
+- En la consola Run del IDE del Consumer se deberá ver algo como lo siguiente
+```bash
+Received new metadata. 
+Key: key_4, Value: Value_texto-mensaje_4, Topic: sample-topic, Partition: 0, Offset: 25
+```
+***
+
+###
+### C- Luego de hacer A y B
+- El Consumer no termina (por el while true): Hay dos opciones
+    - Pararlo manualmente; en este caso si se lo vuelve ajecutar, no encuentra mensjes a menos que se haga el punto A
+    - Dejarlo seguir, ejecucutar de nuevo lo del punto A y ver los resultados como se indica en el punto B.1 
