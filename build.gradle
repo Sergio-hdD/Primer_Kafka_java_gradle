@@ -15,6 +15,7 @@ dependencies {
     implementation 'org.apache.kafka:kafka-clients:3.2.1'
     implementation 'org.slf4j:slf4j-simple:2.0.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
+    implementation group: 'org.json', name: 'json', version: '20220320'
 }
 
 test {
